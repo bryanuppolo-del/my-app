@@ -106,6 +106,7 @@
         line-height: 1.6;
         background: #fff;
         color: #333;
+        border: #0D3C60;
     }
 
     /* navbar */
