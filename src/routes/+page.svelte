@@ -1,56 +1,61 @@
 <script>
-
+      import Icon from '@iconify/svelte';
 </script>
 
 <!-- Navbar -->
-<nav>
-    <div class="logo">Jarvit Sign</div>
-    <ul>
-        <li><a href="">Home</a></li>
-        <li><a href="">Features</a></li>
-        <li><a href="">Why us?</a></li>
-        <li><a href="">Steps</a></li>
-    </ul>
-    <div class="buttons">
-        <button class="btn-login">Login</button>
-        <button class="btn-register">Registrati</button>
-    </div>
-</nav>
+    <nav>
+        <div class="logo">
+            <img src="src\lib\assets\LogoNome.png" alt="">
+        </div>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="#features">Features</a></li>
+            <li><a href="#why">Why us?</a></li>
+            <li><a href="#steps">Steps</a></li>
+        </ul>
+        <div class="buttons">
+            <button class="btn-login">Login</button>
+            <button class="btn-register">Registrati</button>
+        </div>
+    </nav>
 
-<!-- Hero -->
-<section class="hero">
-    <h1>Benvenuto su Jarvit Sign</h1>
-    <p>lorem ipsum</p>
-    <button>Iniziamo</button>
-    <div class="hero-graphics">
-        <div class="red-shape"></div>
-        <div class="blue-circle"></div>
-        <div class="yellow-bar"></div>
-    </div>
-</section>
+    <!-- Hero -->
+    <section class="hero">
+        <h1>Benvenuto su Jarvit Sign</h1>
+        <p>lorem ipsum</p>
+        <button>Iniziamo</button>
+        <div class="hero-graphics">
+            <div class="red-shape"></div>
+            <div class="blue-circle"></div>
+            <div class="yellow-bar"></div>
+        </div>
+    </section>
 
-<!-- Features -->
- <section class="features">
-    <p class="mini-title">FEATURES</p>
-    <h2>Nel nostro sito ti sarà possibile fare</h2>
-    <div class="grid">
-        <div class="item">
-            <h3>Lorem Ipsum</h3>
-            <p>descrizione breve</p>
+    <!-- Features -->
+     <section class="features" id="features">
+        <p class="mini-title">FEATURES</p>
+        <h2>Nel nostro sito ti sarà possibile fare</h2>
+        <div class="grid">
+            <div class="item">
+                <div class="asset">
+                    <Icon icon="mdi-light:pencil" />
+                </div>
+                <h3>Lorem Ipsum</h3>
+                <p>descrizione breve</p>
+            </div>
+            <div class="item">
+                <h3>Lorem Ipsum</h3>
+                <p>descrizione breve</p>
+            </div>
+            <div class="item">
+                <h3>Lorem Ipsum</h3>
+                <p>descrizione breve</p>
+            </div>
         </div>
-        <div class="item">
-            <h3>Lorem Ipsum</h3>
-            <p>descrizione breve</p>
-        </div>
-        <div class="item">
-            <h3>Lorem Ipsum</h3>
-            <p>descrizione breve</p>
-        </div>
-    </div>
- </section>
+     </section>
 
  <!-- Why Us -->
-  <section class="why">
+  <section class="why" id="why">
     <p class="mini-title">WHY US?</p>
     <h2>Perchè preferire noi</h2>
     <div class="grid">
@@ -61,7 +66,7 @@
   </section>
 
   <!-- Steps -->
-   <section class="steps">
+   <section class="steps" id="steps">
     <p class="mini-title">STEPS</p>
     <h2>Ottieni ciò che ti serve con dei semplici e veloci passaggi</h2>
     <div class="grid">
@@ -93,20 +98,15 @@
     <footer>
         <p>© 2025 Jarvit Sign</p>
     </footer>
-
 <style>
+
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
     *{
         margin: 0;
         padding: 0;
         box-sizing: border-box;
-    }
-
-    body{
-        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-        line-height: 1.6;
-        background: #fff;
-        color: #333;
-        border: #0D3C60;
+        font-family: 'Montserrat', sans-serif;
     }
 
     /* navbar */
@@ -118,11 +118,15 @@
         align-items: center;
         padding: 15px 40px;
     }
+    
+    nav .logo img{
+        max-width: 140px;
+    }
 
     nav ul{
         list-style: none;
         display: flex;
-        gap: 20px;
+        gap: 75px;
     }
 
     nav ul li a{
@@ -213,6 +217,10 @@
     .features .item{
         flex: 1;
         min-width: 200px;
+    }
+
+    .features .item .asset{
+        width: 200px;
     }
 
     /* Why US */
