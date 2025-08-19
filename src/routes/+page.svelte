@@ -1,5 +1,11 @@
 <script>
       import Icon from '@iconify/svelte';
+
+      import { goto } from '$app/navigation';
+
+      function goToRegister() {
+        goto('/register')
+      }
 </script>
 
 <!-- Navbar -->
@@ -15,7 +21,7 @@
         </ul>
         <div class="buttons">
             <button class="btn-login">Login</button>
-            <button class="btn-register">Registrati</button>
+            <button class="btn-register" on:click={goToRegister}> Registrati</button>
         </div>
     </nav>
 
@@ -108,7 +114,7 @@
         box-sizing: border-box;
         font-family: 'Montserrat', sans-serif;
     }
-
+    
     /* navbar */
     nav{
         background: #0D3C60;
