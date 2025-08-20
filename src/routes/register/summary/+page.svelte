@@ -17,121 +17,123 @@
         CAP: string;
         email: string;
         telefono: string;
+        documento?: Documento;
+    }
+
+    interface Documento {
+        tipo: string;
+        numero: string;
+        ente: string;
+        emissione: string;
+        scadenza: string;
+        fronte: string;
+        retro: string;
     }
 
     let userData: userData | null = null;
 
     onMount(() => {
         const data = localStorage.getItem("userData");
+        console.log("Stringa grezza letta dal localStorage:", data);
         if (data) {
             userData = JSON.parse(data) as userData;
+            console.log("Oggetto userData parsato:", userData);
+            if (userData.documento) {
+                console.log("valore di fronte", userData.documento.fronte);
+                console.log("valore di retro", userData.documento.retro);
+            }
         }
     });
 </script>
 
-<h1>UTENTE REGISTRATO</h1>
+<h1>Riepilogo dei dati registrati</h1>
 
-{#if userData} 
-    <form class="summary-form">
+{#if userData}
+    <section>
+        <h2>Step 1 - Dati Anagrafici</h2>
+        <p><strong>Codice Fiscale:</strong> {userData.codiceFiscale}</p>
+        <p><strong>Nome:</strong> {userData.nome}</p>
+        <p><strong>Cognome:</strong> {userData.cognome}</p>
+        <p><strong>Sesso:</strong> {userData.sesso}</p>
+        <p><strong>Data di nascita:</strong> {userData.dataNascita}</p>
+        <p><strong>Nazione di nascita:</strong> {userData.nazioneNascita}</p>
+        <p><strong>Provincia di nascita:</strong> {userData.provinciaNascita}</p>
+        <p><strong>Comune di nascita:</strong> {userData.comuneNascita}</p>
+        <p><strong>Provincia di residenza:</strong> {userData.provinciaResidenza}</p>
+        <p><strong>Comune di residenza:</strong> {userData.comuneResidenza}</p>
+        <p><strong>Via di residenza:</strong> {userData.viaResidenza}</p>
+        <p><strong>Numero Civico:</strong> {userData.nc}</p>
+        <p><strong>CAP:</strong> {userData.CAP}</p>
+        <p><strong>Email:</strong> {userData.email}</p>
+        <p><strong>Telefono:</strong> {userData.telefono}</p>
+    </section>
 
-        <label for="CF">
-            Codice Fiscale:
-            <input type="text" value={userData.codiceFiscale} readonly>
-        </label>
+    <section>
+    <h2>Step 2 - Documento</h2>
+    
+    {#if userData.documento}
+        <p><strong>Tipo documento:</strong> {userData.documento.tipo}</p>
+        <p><strong>Numero documento:</strong> {userData.documento.numero}</p>
+        <p><strong>Ente emittente:</strong> {userData.documento.ente}</p>
+        <p><strong>Data di emissione:</strong> {userData.documento.emissione}</p>
+        <p><strong>Data di scadenza:</strong> {userData.documento.scadenza}</p>
 
-        <label for="nome">
-            Nome:
-            <input type="text" value={userData.nome} readonly>
-        </label>
+        <div>
+            <strong>Fronte:</strong>
+            {#if userData.documento.fronte?.startsWith("data:image")}
+                <img src="{userData.documento.fronte}" alt="Fronte documento">
+            {:else if userData.documento.fronte?.startsWith("data:application/pdf")}
+                <a href="{userData.documento.fronte}" target="_blank">Apri PDF Fronte</a>
+            {:else}
+                <p><em>Nessuna immagine o PDF per il fronte.</em></p>
+            {/if}
+        </div>
 
-        <label for="cognome">
-            Cognome:
-            <input type="text" value={userData.cognome} readonly>
-        </label>
-
-        <label for="Sesso">
-            Sesso:
-            <input type="text" value={userData.sesso} readonly>
-        </label>
-
-        <label for="dataNascita">
-            Data di nascita:
-            <input type="text" value={userData.dataNascita} readonly>
-        </label>
-
-        <label for="nazioneNascita">
-            Nazione di Nascita:
-            <input type="text" value={userData.nazioneNascita} readonly>
-        </label>
-
-        <label for="provinciaNascita">
-            Provincia di nascita:
-            <input type="text" value={userData.provinciaNascita} readonly>
-        </label>
-
-        <label for="comuneNascita">
-            Comune di nascita:
-            <input type="text" value={userData.comuneNascita} readonly>
-        </label>
-
-        <label for="provinciaResidenza">
-            Provincia di residenza:
-            <input type="text" value={userData.provinciaResidenza} readonly>
-        </label>
-
-        <label for="comuneResidenza">
-            Comune di residenza:
-            <input type="text" value={userData.comuneResidenza} readonly>
-        </label>
-
-        <label for="viaResidenza">
-            Via di residenza:
-            <input type="text" value={userData.viaResidenza} readonly>
-        </label>
-
-        <label for="NC">
-            Numero Civico:
-            <input type="text" value={userData.nc} readonly>
-        </label>
-
-        <label for="CAP">
-            CAP:
-            <input type="text" value={userData.CAP} readonly>
-        </label>
-
-        <label for="email">
-            Email:
-            <input type="email" value={userData.email} readonly>
-        </label>
-
-        <label for="telefono">
-            Telefono:
-            <input type="text" value={userData.telefono} readonly>
-        </label>
-    </form>
+        <div>
+            <strong>Retro:</strong>
+            {#if userData.documento.retro?.startsWith("data:image")}
+                <img src="{userData.documento.retro}" alt="Retro documento">
+            {:else if userData.documento.retro?.startsWith("data:application/pdf")}
+                <a href="{userData.documento.retro}" target="_blank">Apri PDF Retro</a>
+            {:else}
+                <p><em>Nessuna immagine o PDF per il retro.</em></p>
+            {/if}
+        </div>
     {:else}
-    <p>nessun dato trovato, Torna alla schermata <a href="/register">pagina di registrazione</a></p>
+        <p>Nessun documento caricato.</p>
+    {/if}
+</section>
 {/if}
 
 <style>
-    .summary-form{
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 1rem 2rem;
-        max-width: 800px;
-        margin: 2rem auto;
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+    *{
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Montserrat', sans-serif;
     }
 
-    label{
-        display: flex;
-        flex-direction: column;
-        font-weight: bold;
+    h1{
+        text-align: center;
     }
 
-    input{
-        padding: 0.5rem;
+    h2{
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    img{
+        max-width: 200px;
+        display: block;
+        margin-top: 0.3rem;
+    }
+
+    section{
         border: 1px solid #ccc;
-        background: #f8f8f8;
-        border-radius: 5px;
+        padding: 1rem;
+        margin-bottom: 1rem;
     }
+
 </style>
