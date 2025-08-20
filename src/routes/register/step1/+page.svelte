@@ -2,6 +2,8 @@
   import { goto } from "$app/navigation";
   import { error } from "@sveltejs/kit";
 
+    // Dati Form //
+
     let codiceFiscale = "";
     let nome = "";
     let cognome = "";
@@ -22,6 +24,8 @@
     let errorEmail = "";
     let errorTel = "";
     let errorCAP= "";
+
+    // Validators //
 
     function validaCodiceFiscale() {
         const regex = /^[A-Z]{6}[0-9]{2}[A-Z][0-9]{2}[A-Z][0-9]{3}[A-Z]$/i;
@@ -48,6 +52,8 @@
         const regex = /^\d{5}$/;
         errorCAP = regex.test(CAP) ? "" : "CAP inesistente"
     }
+
+    // Next Step //
 
     /**
    * @param {{ preventDefault: () => void; }} e
@@ -79,7 +85,7 @@
             }
 
             localStorage.setItem("userData", JSON.stringify(userData));
-            goto("/register/summary")
+            goto("/register/step2")
         }
     }
 

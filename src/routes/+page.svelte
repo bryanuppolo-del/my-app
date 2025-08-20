@@ -4,10 +4,11 @@
       import { goto } from '$app/navigation';
 
       function goToRegister() {
-        goto('/register')
+        goto('/register/step1')
       }
 </script>
 
+<div class="main">
 <!-- Navbar -->
     <nav>
         <div class="logo">
@@ -60,50 +61,51 @@
         </div>
      </section>
 
- <!-- Why Us -->
-  <section class="why" id="why">
-    <p class="mini-title">WHY US?</p>
-    <h2>Perchè preferire noi</h2>
-    <div class="grid">
-        <div class="card">Lorem</div>
-        <div class="card">Lorem Ipsum</div>
+    <!-- Why Us -->
+    <section class="why" id="why">
+        <p class="mini-title">PERCHE NOI?</p>
+        <h2>Perchè preferire noi</h2>
+        <div class="grid">
+            <div class="card">Lorem</div>
+            <div class="card">Lorem Ipsum</div>
+        </div>
         <div class="card">Risultati veloci <br><span class="highlight">30S</span></div>
-    </div>
-  </section>
+    </section>
 
   <!-- Steps -->
-   <section class="steps" id="steps">
-    <p class="mini-title">STEPS</p>
-    <h2>Ottieni ciò che ti serve con dei semplici e veloci passaggi</h2>
-    <div class="grid">
-        <div class="step">
-            <span><p>1</p></span><br>
-            Accedi al tuo account
+    <section class="steps" id="steps">
+        <p class="mini-title">STEPS</p>
+        <h2>Ottieni ciò che ti serve con dei semplici e veloci passaggi</h2>
+        <div class="grid">
+            <div class="step">
+                <span><p>1</p></span><br>
+                Accedi al tuo account
+            </div>
+            <div class="step">
+                <span><p>2</p></span><br>
+                Accedi al tuo account
+            </div>
+            <div class="step">
+                <span><p>3</p></span><br>
+                Accedi al tuo account
+            </div>
         </div>
-        <div class="step">
-            <span><p>2</p></span><br>
-            Accedi al tuo account
-        </div>
-        <div class="step">
-            <span><p>3</p></span><br>
-            Accedi al tuo account
-        </div>
-    </div>
-   </section>
+    </section>
 
    <!-- CTA -->
-   <section class="cta">
-    <div class="cta-box">
-        <h3>Sei pronto a scoprire la comodità di Jarvit Sign?</h3>
-        <button class="btn-register">Registrati</button>
-        <button class="btn-login">Login</button>
-    </div>
-   </section>
+    <section class="cta">
+        <div class="cta-box">
+            <h3>Sei pronto a scoprire la comodità di Jarvit Sign?</h3>
+            <button class="btn-register">Registrati</button>
+            <button class="btn-login">Login</button>
+        </div>
+    </section>
 
    <!-- Footer -->
     <footer>
         <p>© 2025 Jarvit Sign</p>
     </footer>
+</div>
 <style>
 
     @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
@@ -231,12 +233,19 @@
 
     /* Why US */
     .why{
-        text-align: center;
+        max-width: 800px;
         padding: 50px 20px;
+        margin: 40px auto;
+    }
+
+    .why .mini-title{
+        color: #C20F2F;
+        text-align: center;
     }
 
     .why h2{
         margin-bottom: 30px;
+        text-align: center;
     }
 
     .why .grid{
@@ -253,6 +262,7 @@
         border-radius: 10px;
         flex: 1;
         min-width: 200px;
+        margin-bottom: 20px;
     }
 
     .why .highlight {
