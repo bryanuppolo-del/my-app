@@ -1,8 +1,8 @@
 <script>
     export let events = [
-        { time: "9:00", title: "Primo appuntamento", color: "red"},
-        { time: "10:00", title: "Videocall", color: "yellow"},
-        { time: "13:00", title: "Pausa", color: "green"},
+        { time: "9:00", title: "Primo appuntamento", color: "#C20F2F"},
+        { time: "10:00", title: "Videocall", color: "#F2A71B"},
+        { time: "13:00", title: "Pausa", color: "#198754"},
     ];
 </script>
 
@@ -19,12 +19,12 @@
 
 <style>
     .calendar {
-        max-width: 850px;
+        max-width: 860px;
         margin-top: 20px;
         background: #fff;
         border-radius: 10px;
         padding: 15px;
-        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+        box-shadow:0 10px 30px -5px rgba(0, 0, 0, 0.2) ;
     }
 
     .events{

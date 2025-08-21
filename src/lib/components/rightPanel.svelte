@@ -11,15 +11,23 @@
     export let documents = [
         { text: "Hai firmato un documento", type: "success" },
         { text: "Documento scaduto", type: "error" }
-    ]
+    ];
+
+    // Miglioramento: Data dinamica
+    const oggi = new Date();
+    const dataFormattata = oggi.toLocaleDateString('it-IT', {
+        weekday: 'long',
+        day: 'numeric',
+        month: 'long'
+    });
 </script>
 
 <aside class="rightbar">
     <div class="userCard">
-        <img class="avatar" src="src/lib/assets/userAvatar.jpg" alt="avatar {user.name}">
+        <img class="avatar" src="/src/lib/assets/userAvatar.jpg" alt="avatar {user.name}">
         <div class="info">
-            <div class="hello"><h4>Buon pomeriggio <br>{user.name}</h4></div>
-            <div class="sub">Venerdi, 8 Agosto</div>
+            <div class="hello"><h4>Buonasera <br>{user.name}</h4></div>
+            <div class="sub">{dataFormattata}</div>
         </div>
     </div>
 
@@ -48,10 +56,9 @@
 </aside>
 
 <style>
-
-    .rightbar{
+    .rightbar {
+        height: 100%; 
         min-width: 350px;
-        height: 80vh;
         overflow-y: auto;
         padding: 20px;
         background: #fff;
@@ -59,9 +66,9 @@
         flex-direction: column;
         gap: 16px;
         border-radius: 20px;
-        box-shadow: 65px 40px 100px rgba(0, 0, 0, 0.4) ;
+        box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.1); 
     }
-
+    
     .userCard{
         display: flex;
         flex-direction: column;
@@ -79,30 +86,28 @@
         padding: 15px;
         border: 1px solid #3E6685;
         border-radius: 50%;
-        box-shadow: 15px 15px 200px 5px #3E6685;
+        box-shadow: 0px 0px 40px 2px #3E6685;
     }
 
-    .info.hello{
-        font-size: 12px;
+    .info .hello{
+        font-size: 1.2rem;
+        line-height: 1.4;
+        font-weight: 500;
+        color: #333;
+    }
+
+    .info .sub{
+        font-size: 14px;
         color: #6b7280;
-    }
-
-    .info.name{
-        font-weight: 700;
-        line-height: 1.1;
-    }
-
-    .info.sub{
-        font-size: 12px;
-        color: #6b7280;
-        margin-top: 2px;
+        margin-top: 4px;
+        text-transform: capitalize;
     }
 
     .panel{
-        background: #fff;
+        background: #F5F7FB;
         border-radius: 12px;
         padding: 14px;
-        box-shadow: 0 1px 4px rgba(0, 0, 0, .08);
+        box-shadow:0 10px 30px -5px rgba(0, 0, 0, 0.2) ;
     }
 
     .panelTitle{
@@ -132,8 +137,8 @@
         border-radius: 8px;
     }
 
-    .row + .row{
-        margin-top: 8px;
+    .row:not(:last-child){
+        margin-bottom: 8px;
     }
 
     .dot{
@@ -141,27 +146,15 @@
         height: 10px;
         border-radius: 50%;
         background: #d1d5db;
-        flex: none;
+        flex-shrink: 0;
     }
-
-    .row.info .dot{
-        background: #60a5fa;
-    }
-
-    .row.warning .dot{
-        background: #f5920b;
-    }
-
-    .row.success .dot{
-        background: #22c552;
-    }
-
-    .row.error .dot{
-        background: #ef4444;
-    }
+    
+    .row.info .dot{ background: #60a5fa; }
+    .row.warning .dot{ background: #f5920b; }
+    .row.success .dot{ background: #22c552; }
+    .row.error .dot{ background: #ef4444; }
 
     .txt{
         font-size: 14px;
     }
-
 </style>

@@ -36,7 +36,7 @@
 
 <style>
     .requests{
-        max-width: 100%;
+        max-width: 860px;
         margin-top: 20px;
     }
 
@@ -46,6 +46,7 @@
         margin-top: 10px;
         overflow-x: auto;
         padding-bottom: 10px;
+        height: 150px;
     }
 
     .card{
@@ -72,5 +73,19 @@
     .description{
         display: flex;
         flex-direction: column;
+    }
+
+    ::-webkit-scrollbar{
+        height: 20px;
+    }
+    
+    ::-webkit-scrollbar-track{
+        background: white;
+        border-radius: 10px;
+    }
+
+    ::-webkit-scrollbar-thumb{
+        border-radius: 10px;
+        background: #0D3C60;
     }
 </style>

@@ -6,16 +6,16 @@
 
 <nav class="sidebar">
     <div class="logo-home">
-        <img class="logo-img" src="src\lib\assets\Logo.png" alt="">
+        <img class="logo-img" src="../src/lib/assets/Logo.png" alt="">
         <h1 class="logo">JARVIT</h1>
     </div>
     <ul>
         <li class="section-title">OVERVIEW</li>
-        <li class={active === "Dashboard" ? "active" : ""}><Icon icon="material-symbols:dashboard-rounded" width="24" height="24" />Dashboard</li>
-        <li class={active === "Calendario" ? "active" : ""}><Icon icon="fluent:calendar-date-20-regular" width="24" height="24" />Calendario</li>
-        <li class={active === "Notifiche" ? "active" : ""}><Icon icon="mingcute:notification-line" width="24" height="24" />Notifiche</li>
-        <li class={active === "Richieste" ? "active" : ""}><Icon icon="icon-park-outline:pull-requests" width="24" height="24" />Richieste</li>
-        <li class={active === "Utenti" ? "active" : ""}><Icon icon="majesticons:users-line" width="24" height="24" />Utenti</li>
+        <li class={active === "Dashboard" ? "active" : ""}><Icon icon="material-symbols:dashboard-rounded" width="24" height="24" /><a href="/dashboard_adr/dashboard">Dashboard</a></li>
+        <li class={active === "Calendario" ? "active" : ""}><Icon icon="fluent:calendar-date-20-regular" width="24" height="24" /><a href="/dashboard_adr/calendar">Calendario</a></li>
+        <li class={active === "Notifiche" ? "active" : ""}><Icon icon="mingcute:notification-line" width="24" height="24" /><a href="/dashboard_adr/notification">Notifiche</a></li>
+        <li class={active === "Richieste" ? "active" : ""}><Icon icon="icon-park-outline:pull-requests" width="24" height="24" /><a href="/dashboard_adr/request">Richieste</a></li>
+        <li class={active === "Utenti" ? "active" : ""}><Icon icon="majesticons:users-line" width="24" height="24" /><a href="/dashboard_adr/users">Utenti</a></li>
     </ul>
     <div class="settings">
         <ul>
@@ -29,7 +29,7 @@
 
 <style>
     .sidebar{
-        width: 335px;
+        width: 300px;
         padding: 20px;
         background: #ffffff;
         display: flex;
@@ -76,6 +76,11 @@
         gap: 20px;
     }
     
+    li a{
+        text-decoration: none;
+        color: black;
+    }
+
     li.active{
         color: #C20F2F;
     }
