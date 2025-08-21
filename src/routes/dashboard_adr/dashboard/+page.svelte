@@ -61,6 +61,7 @@
 
     .content-wrapper {
         width: 100%;
+        gap: 20px;
     }
     
     .main {

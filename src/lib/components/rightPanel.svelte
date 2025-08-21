@@ -13,7 +13,6 @@
         { text: "Documento scaduto", type: "error" }
     ];
 
-    // Miglioramento: Data dinamica
     const oggi = new Date();
     const dataFormattata = oggi.toLocaleDateString('it-IT', {
         weekday: 'long',
@@ -56,8 +55,9 @@
 </aside>
 
 <style>
+
     .rightbar {
-        height: 100%; 
+        height: 80%; 
         min-width: 350px;
         overflow-y: auto;
         padding: 20px;
@@ -156,5 +156,9 @@
 
     .txt{
         font-size: 14px;
+    }
+
+    h4{
+        margin: 0;
     }
 </style>

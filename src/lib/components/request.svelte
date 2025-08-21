@@ -1,5 +1,6 @@
 <script>
     import Icon from "@iconify/svelte";
+    import ButtonGo from "./buttonGo.svelte";
 
     export let requests = [
         { name: "Bryan" },
@@ -13,7 +14,10 @@
 </script>
 
 <div class="requests">
-    <h2>Nuove Richieste</h2>
+    <div class="btn-group">
+        <h2>Nuove Richieste</h2>
+        <ButtonGo></ButtonGo>
+    </div>
     <div class="cards">
         {#if requests.length > 0}  
             {#each requests as r}
@@ -25,7 +29,6 @@
                         <span style="font-size: 24px;">{r.name}</span>
                         <span style="font-size: 14px;">Nuova richiesta</span>
                     </div>
-                    <div class="btn-group"></div>
                 </div>
             {/each}
         {:else}
@@ -38,6 +41,13 @@
     .requests{
         max-width: 860px;
         margin-top: 20px;
+    }
+
+    .btn-group{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 860px;
     }
 
     .cards{

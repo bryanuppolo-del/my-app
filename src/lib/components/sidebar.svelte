@@ -1,7 +1,6 @@
 <script>
   import Icon from "@iconify/svelte";
-
-    export let active = "Dashboard";
+  import { page } from "$app/stores";
 </script>
 
 <nav class="sidebar">
@@ -9,14 +8,34 @@
         <img class="logo-img" src="../src/lib/assets/Logo.png" alt="">
         <h1 class="logo">JARVIT</h1>
     </div>
-    <ul>
-        <li class="section-title">OVERVIEW</li>
-        <li class={active === "Dashboard" ? "active" : ""}><Icon icon="material-symbols:dashboard-rounded" width="24" height="24" /><a href="/dashboard_adr/dashboard">Dashboard</a></li>
-        <li class={active === "Calendario" ? "active" : ""}><Icon icon="fluent:calendar-date-20-regular" width="24" height="24" /><a href="/dashboard_adr/calendar">Calendario</a></li>
-        <li class={active === "Notifiche" ? "active" : ""}><Icon icon="mingcute:notification-line" width="24" height="24" /><a href="/dashboard_adr/notification">Notifiche</a></li>
-        <li class={active === "Richieste" ? "active" : ""}><Icon icon="icon-park-outline:pull-requests" width="24" height="24" /><a href="/dashboard_adr/request">Richieste</a></li>
-        <li class={active === "Utenti" ? "active" : ""}><Icon icon="majesticons:users-line" width="24" height="24" /><a href="/dashboard_adr/users">Utenti</a></li>
-    </ul>
+<ul>
+    <li class="section-title">OVERVIEW</li>
+    
+    <li class:active={$page.url.pathname.startsWith('/dashboard_adr/dashboard')}>
+        <Icon icon="material-symbols:dashboard-rounded" width="24" height="24" />
+        <a href="/dashboard_adr/dashboard">Dashboard</a>
+    </li>
+
+    <li class:active={$page.url.pathname.startsWith('/dashboard_adr/calendar')}>
+        <Icon icon="fluent:calendar-date-20-regular" width="24" height="24" />
+        <a href="/dashboard_adr/calendar">Calendario</a>
+    </li>
+
+    <li class:active={$page.url.pathname.startsWith('/dashboard_adr/notification')}>
+        <Icon icon="mingcute:notification-line" width="24" height="24" />
+        <a href="/dashboard_adr/notification">Notifiche</a>
+    </li>
+
+    <li class:active={$page.url.pathname.startsWith('/dashboard_adr/request')}>
+        <Icon icon="icon-park-outline:pull-requests" width="24" height="24" />
+        <a href="/dashboard_adr/request">Richieste</a>
+    </li>
+
+    <li class:active={$page.url.pathname.startsWith('/dashboard_adr/users')}>
+        <Icon icon="majesticons:users-line" width="24" height="24" />
+        <a href="/dashboard_adr/users">Utenti</a>
+    </li>
+</ul>
     <div class="settings">
         <ul>
             <li class="section-title">SETTINGS</li>
