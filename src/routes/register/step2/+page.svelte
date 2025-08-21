@@ -203,7 +203,7 @@ function validaFile(file: File | null, isFronte = true) {
         <form on:submit|preventDefault={prossimoStep}>
             <label for="document_type">
                 Tipo documento
-                <select bind:value={document_type} class:error={errorDocumento}>
+                <select bind:value={document_type} class:error={errorDocumento} on:blur={validaDocumento}>
                     <option value="">Seleziona tipo documento</option>
                     <option value="carta_identita">Carta d'identità</option>
                     <option value="passaporto">Passaporto</option>
@@ -249,7 +249,6 @@ function validaFile(file: File | null, isFronte = true) {
             const target = e.target as HTMLInputElement;
             if (target.files && target.files[0]) {
                 const file = target.files[0];
-                console.log("TIPO MIME RILEVATO DAL BROWSER:", file.type);
                 document_image_front = file;
             } else {
                 document_image_front = null;
@@ -267,20 +266,13 @@ function validaFile(file: File | null, isFronte = true) {
                 {/if}
             </label>
 
-            <button type="submit">registrati</button>
+            <div class="btn-next">
+                <button type="submit">registrati</button>
+            </div>
         </form>
     </div>
 
 <style>
-     @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
-
-    *{
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        font-family: 'Montserrat', sans-serif;
-    }
-
     .container{
         max-width: 1000px;
         margin: 40px auto;
@@ -350,16 +342,5 @@ function validaFile(file: File | null, isFronte = true) {
         border: none;
         border-radius: 5px;
         cursor: pointer;
-    }
-
-    .input-with-btn {
-        display: flex;
-        align-items: center;
-    }
-
-    .input-with-btn input{
-        flex: 1;
-        border-radius: 5px 0 0 5px;
-        margin: 0;
     }
 </style>

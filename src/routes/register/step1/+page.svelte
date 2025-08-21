@@ -20,6 +20,7 @@
     let email = "";
     let telefono = "";
 
+    let successCF = "";
     let errorCF = "";
     let errorEmail = "";
     let errorTel = "";
@@ -31,10 +32,13 @@
         const regex = /^[A-Z]{6}[0-9]{2}[A-Z][0-9]{2}[A-Z][0-9]{3}[A-Z]$/i;
         if (!regex.test(codiceFiscale)) {
             errorCF = "Codice fiscale non valido";
+            successCF = ""
         }   else if (codiceFiscale === "RSSMRA85M01H501Z") {
             errorCF = "Il codice fiscale inserito è gia registrato"; 
+            successCF = ""
         }   else {
             errorCF = "";
+            successCF = "Il codice fiscale è stato verificato con successo"
         }
     }
 
@@ -121,12 +125,15 @@
                 <div class="input-with-btn">
                     <input type="text"
                     bind:value={codiceFiscale}
-                    class:error={errorCF}>
-                    <button class="check-button" type="button" aria-label="checkbutton" on:click={validaCodiceFiscale}><i class='bx  bx-clipboard-check'  ></i> </button>
+                    class:error={errorCF}
+                    class:success={successCF}>
+                    <button class="check-button" class:success={successCF} class:error={errorCF} type="button" aria-label="checkbutton" on:click={validaCodiceFiscale}><i class='bx  bx-clipboard-check'  ></i> </button>
                 </div>
                 {#if errorCF}
                     <span class="error-message">{errorCF}</span>
-                    {/if}
+                    {:else if successCF}
+                    <span class="success-message">{successCF}</span>
+                {/if}
             </label>
 
             <label for="nome">
@@ -216,7 +223,7 @@
             </label>
 
             <label for="telefono">
-                telefono
+                Telefono
                 <input type="tel" 
                 bind:value={telefono}
                 class:error={errorTel}
@@ -233,15 +240,6 @@
     </div>
 
 <style>
-    
-    @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
-
-    *{
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        font-family: 'Montserrat', sans-serif;
-    }
 
     .container{
         max-width: 1000px;
@@ -299,10 +297,30 @@
         border-color: #DC3545;
     }
 
+    input.success{
+        border-color: #198754;
+    }
+
+    button.error{
+        background: #DC3545;
+        border: 1px solid #DC3545;
+    }
+
+    button.success{
+        background: #198754;
+        border: 1px solid #198754;
+    }
+
     .error-message{
         color: #DC3545;
         font-size: 0.8rem;
         margin-top: 4px;
+    }
+
+    .success-message{
+        color: #198754;
+        font-size: 0.8rem;
+        margin-top: 4px;  
     }
 
     button{
@@ -317,6 +335,7 @@
     .input-with-btn {
         display: flex;
         align-items: center;
+        margin-top: 5px;
     }
 
     .input-with-btn input{
@@ -332,5 +351,5 @@
         white-space: nowrap;
         border: 1px solid #0D3C60;
     }
-    
+
 </style>
