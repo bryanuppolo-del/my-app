@@ -1,113 +1,113 @@
 <script>
+      import Icon from '@iconify/svelte';
 
+      import { goto } from '$app/navigation';
+
+      function goToRegister() {
+        goto('/register/step1')
+      }
 </script>
 
+<div class="main">
 <!-- Navbar -->
-<nav>
-    <div class="logo">Jarvit Sign</div>
-    <ul>
-        <li><a href="">Home</a></li>
-        <li><a href="">Features</a></li>
-        <li><a href="">Why us?</a></li>
-        <li><a href="">Steps</a></li>
-    </ul>
-    <div class="buttons">
-        <button class="btn-login">Login</button>
-        <button class="btn-register">Registrati</button>
-    </div>
-</nav>
-
-<!-- Hero -->
-<section class="hero">
-    <h1>Benvenuto su Jarvit Sign</h1>
-    <p>lorem ipsum</p>
-    <button>Iniziamo</button>
-    <div class="hero-graphics">
-        <div class="red-shape"></div>
-        <div class="blue-circle"></div>
-        <div class="yellow-bar"></div>
-    </div>
-</section>
-
-<!-- Features -->
- <section class="features">
-    <p class="mini-title">FEATURES</p>
-    <h2>Nel nostro sito ti sarà possibile fare</h2>
-    <div class="grid">
-        <div class="item">
-            <h3>Lorem Ipsum</h3>
-            <p>descrizione breve</p>
+    <nav>
+        <div class="logo">
+            <img src="src\lib\assets\LogoNome.png" alt="">
         </div>
-        <div class="item">
-            <h3>Lorem Ipsum</h3>
-            <p>descrizione breve</p>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="#features">Features</a></li>
+            <li><a href="#why">Why us?</a></li>
+            <li><a href="#steps">Steps</a></li>
+        </ul>
+        <div class="buttons">
+            <button class="btn-login">Login</button>
+            <button class="btn-register" on:click={goToRegister}> Registrati</button>
         </div>
-        <div class="item">
-            <h3>Lorem Ipsum</h3>
-            <p>descrizione breve</p>
-        </div>
-    </div>
- </section>
+    </nav>
 
- <!-- Why Us -->
-  <section class="why">
-    <p class="mini-title">WHY US?</p>
-    <h2>Perchè preferire noi</h2>
-    <div class="grid">
-        <div class="card">Lorem</div>
-        <div class="card">Lorem Ipsum</div>
+    <!-- Hero -->
+    <section class="hero">
+        <h1>Benvenuto su Jarvit Sign</h1>
+        <p>lorem ipsum</p>
+        <button>Iniziamo</button>
+        <div class="hero-graphics">
+            <div class="red-shape"></div>
+            <div class="blue-circle"></div>
+            <div class="yellow-bar"></div>
+        </div>
+    </section>
+
+    <!-- Features -->
+     <section class="features" id="features">
+        <p class="mini-title">FEATURES</p>
+        <h2>Nel nostro sito ti sarà possibile fare</h2>
+        <div class="grid">
+            <div class="item">
+                <div class="asset">
+                    <Icon icon="mdi-light:pencil" />
+                </div>
+                <h3>Lorem Ipsum</h3>
+                <p>descrizione breve</p>
+            </div>
+            <div class="item">
+                <h3>Lorem Ipsum</h3>
+                <p>descrizione breve</p>
+            </div>
+            <div class="item">
+                <h3>Lorem Ipsum</h3>
+                <p>descrizione breve</p>
+            </div>
+        </div>
+     </section>
+
+    <!-- Why Us -->
+    <section class="why" id="why">
+        <p class="mini-title">PERCHE NOI?</p>
+        <h2>Perchè preferire noi</h2>
+        <div class="grid">
+            <div class="card">Lorem</div>
+            <div class="card">Lorem Ipsum</div>
+        </div>
         <div class="card">Risultati veloci <br><span class="highlight">30S</span></div>
-    </div>
-  </section>
+    </section>
 
   <!-- Steps -->
-   <section class="steps">
-    <p class="mini-title">STEPS</p>
-    <h2>Ottieni ciò che ti serve con dei semplici e veloci passaggi</h2>
-    <div class="grid">
-        <div class="step">
-            <span><p>1</p></span><br>
-            Accedi al tuo account
+    <section class="steps" id="steps">
+        <p class="mini-title">STEPS</p>
+        <h2>Ottieni ciò che ti serve con dei semplici e veloci passaggi</h2>
+        <div class="grid">
+            <div class="step">
+                <span><p>1</p></span><br>
+                Accedi al tuo account
+            </div>
+            <div class="step">
+                <span><p>2</p></span><br>
+                Accedi al tuo account
+            </div>
+            <div class="step">
+                <span><p>3</p></span><br>
+                Accedi al tuo account
+            </div>
         </div>
-        <div class="step">
-            <span><p>2</p></span><br>
-            Accedi al tuo account
-        </div>
-        <div class="step">
-            <span><p>3</p></span><br>
-            Accedi al tuo account
-        </div>
-    </div>
-   </section>
+    </section>
 
    <!-- CTA -->
-   <section class="cta">
-    <div class="cta-box">
-        <h3>Sei pronto a scoprire la comodità di Jarvit Sign?</h3>
-        <button class="btn-register">Registrati</button>
-        <button class="btn-login">Login</button>
-    </div>
-   </section>
+    <section class="cta">
+        <div class="cta-box">
+            <h3>Sei pronto a scoprire la comodità di Jarvit Sign?</h3>
+            <button class="btn-register">Registrati</button>
+            <button class="btn-login">Login</button>
+        </div>
+    </section>
 
    <!-- Footer -->
     <footer>
         <p>© 2025 Jarvit Sign</p>
     </footer>
-
+</div>
 <style>
-    *{
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
-
-    body{
-        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-        line-height: 1.6;
-        background: #fff;
-        color: #333;
-    }
-
+    
     /* navbar */
     nav{
         background: #0D3C60;
@@ -117,11 +117,15 @@
         align-items: center;
         padding: 15px 40px;
     }
+    
+    nav .logo img{
+        max-width: 140px;
+    }
 
     nav ul{
         list-style: none;
         display: flex;
-        gap: 20px;
+        gap: 75px;
     }
 
     nav ul li a{
@@ -214,14 +218,25 @@
         min-width: 200px;
     }
 
+    .features .item .asset{
+        width: 200px;
+    }
+
     /* Why US */
     .why{
-        text-align: center;
+        max-width: 800px;
         padding: 50px 20px;
+        margin: 40px auto;
+    }
+
+    .why .mini-title{
+        color: #C20F2F;
+        text-align: center;
     }
 
     .why h2{
         margin-bottom: 30px;
+        text-align: center;
     }
 
     .why .grid{
@@ -238,6 +253,7 @@
         border-radius: 10px;
         flex: 1;
         min-width: 200px;
+        margin-bottom: 20px;
     }
 
     .why .highlight {
