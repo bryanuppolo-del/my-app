@@ -12,7 +12,7 @@
 <!-- Navbar -->
     <nav>
         <div class="logo">
-            <img src="static\assets\LogoNome.png" alt="">
+            <img src="" alt="">
         </div>
         <ul>
             <li><a href="/">Home</a></li>
