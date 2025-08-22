@@ -32,7 +32,7 @@
     <div class="center-container">
         <div class="content-wrapper">
             <div class="cta">
-                <img src="/src/lib/assets/CTA.png" alt="Call to Action">
+                <img src="static\assets\CTA.png" alt="Call to Action">
             </div>
             <div class="main">
                 <Calendar {events} />

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import favicon from '$lib/assets/favicon.svg';
+	import favicon from '$lib/static/assets/favicon.svg';
 	import Icon from '@iconify/svelte';
 
 	let { children } = $props();
