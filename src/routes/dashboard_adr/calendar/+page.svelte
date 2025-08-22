@@ -1,5 +1,11 @@
+<script>
+    import CalendarPage from "$lib/components/calendarPage.svelte";
+</script>
+
 <div class="app">
-    <h1>Qui va il contenuto di calendario</h1>
+    <div class="main">
+        <CalendarPage></CalendarPage>
+    </div>
 </div>
 
 <style>
