@@ -2,6 +2,7 @@
     import RightPanel from "$lib/components/rightPanel.svelte";
     import Calendar from "$lib/components/calendar.svelte";
     import Request from "$lib/components/request.svelte";
+    import CTAImage from "$lib/static/assets/CTA.png"
 
     const user = { name: "Giuseppe Biamonte", role: "ADR" };
 
@@ -32,7 +33,7 @@
     <div class="center-container">
         <div class="content-wrapper">
             <div class="cta">
-                <img src="" alt="Call to Action">
+                <img src={CTAImage} alt="Call to Action">
             </div>
             <div class="main">
                 <Calendar {events} />
