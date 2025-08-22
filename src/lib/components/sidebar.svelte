@@ -1,11 +1,12 @@
 <script>
   import Icon from "@iconify/svelte";
   import { page } from "$app/stores";
+  import Logo from "$lib/static/assets/Logo.png"
 </script>
 
 <nav class="sidebar">
     <div class="logo-home">
-        <img class="logo-img" src="" alt="">
+        <img class="logo-img" src="{Logo}" alt="">
         <h1 class="logo">JARVIT</h1>
     </div>
 <ul>

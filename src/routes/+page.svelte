@@ -1,6 +1,6 @@
 <script>
       import Icon from '@iconify/svelte';
-
+      import LogoNome from "$lib/static/assets/LogoNome.png"
       import { goto } from '$app/navigation';
 
       function goToRegister() {
@@ -12,7 +12,7 @@
 <!-- Navbar -->
     <nav>
         <div class="logo">
-            <img src="" alt="">
+            <img src="{LogoNome}" alt="">
         </div>
         <ul>
             <li><a href="/">Home</a></li>

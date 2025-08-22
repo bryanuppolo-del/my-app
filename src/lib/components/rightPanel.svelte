@@ -1,4 +1,6 @@
 <script>
+    import Giuseppe from "$lib/static/assets/userAvatar.jpg"
+
     export let user = {
         name: "Giuseppe Biamonte",
         role: "ADR"
@@ -23,7 +25,7 @@
 
 <aside class="rightbar">
     <div class="userCard">
-        <img class="avatar" src="" alt="avatar {user.name}">
+        <img class="avatar" src="{Giuseppe}" alt="avatar {user.name}">
         <div class="info">
             <div class="hello"><h4>Buonasera <br>{user.name}</h4></div>
             <div class="sub">{dataFormattata}</div>

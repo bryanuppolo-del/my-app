@@ -1,4 +1,6 @@
 <script>
+    import Giuseppe from "$lib/static/assets/userAvatar.jpg"
+    
     export let user = {
         name: "Giuseppe Biamonte",
         role: "ADR"
@@ -13,7 +15,7 @@
 
 
     <div class="profile">
-        <img class="profile-img" src="" alt="">
+        <img class="profile-img" src="{Giuseppe}" alt="">
         <div class="descrition">
             <h4>{user.name}</h4>
             <div class="sub">{user.role}</div>
