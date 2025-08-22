@@ -5,7 +5,7 @@
 
 <nav class="sidebar">
     <div class="logo-home">
-        <img class="logo-img" src="../static/assets/Logo.png" alt="">
+        <img class="logo-img" src="" alt="">
         <h1 class="logo">JARVIT</h1>
     </div>
 <ul>
