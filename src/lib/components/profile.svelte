@@ -13,7 +13,7 @@
 
 
     <div class="profile">
-        <img class="profile-img" src="/static/assets/userAvatar.jpg" alt="">
+        <img class="profile-img" src="static/assets/userAvatar.jpg" alt="">
         <div class="descrition">
             <h4>{user.name}</h4>
             <div class="sub">{user.role}</div>
