@@ -39,6 +39,11 @@
 - Esempio di utilizzo: Nella pagina "Utenti" è presente la lista che si carica con il lazy load
 
 ## Profile
-- Scopo:
-- Props Principali:
-- Esempio di utilizzo:
+- Scopo: Si divide in due parti, quella sulla sinistra che è la searchbar tramite il quale l'ODR può effettuare la ricerca di un utente specifico, mentre sulla destra c'è la sezione con il nome ed il ruolo di chi ha effettuato il login.
+- Props Principali: Html / CSS / TS
+- Esempio di utilizzo: è sempre presente nella dashboard in modo che in qualunque momento l'ODR può effettuare la ricerca
+
+## ConfirmModal
+- Scopo: Serve per far si che ogni volta che l'utente prova ad eliminare un qualcosa o ad accettare o rifiutare una richiesta, questa modale chiederà all'utente "sei sicuro di voler...?", in modo che nulla venga eliminato o accettato per sbaglio ed allo stesso tempo poter riutilizzare questo componente in più parti del sito
+- Props Principali: Html / CSS / TS
+- Esempio di utilizzo: quando l'ODR vorrà eliminare un appuntamento assegnato in precedenza, per farlo dovrà confermare tramite il confirmModal

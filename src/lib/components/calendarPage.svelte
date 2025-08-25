@@ -1,5 +1,6 @@
 <script lang="ts">
     import Icon from "@iconify/svelte";
+    import ConfirmModal from "./confirmModal.svelte";
     import { onMount } from "svelte";
 
     type Appointment = {
@@ -18,6 +19,9 @@
     let newTime = "";
 
     let showModal: boolean = false;
+    let showConfirmModal: boolean = false;
+
+    let appointmentToDelete: {date: string; index: number} | null = null;
 
     let currentYear = new Date().getFullYear();
     let currentMonth = new Date().getMonth(); 
@@ -35,6 +39,33 @@
         loadAppointments();
     });
 
+    function confirmDelete(date: string, index:number) {
+        appointmentToDelete = { date, index };
+        showConfirmModal = true;
+    }
+
+    function deleteAppointment() {
+    if (appointmentToDelete) {
+        const { date, index } = appointmentToDelete;
+        const updatedAppointmentsForDate = appointments[date].filter((_, i) => i !== index);
+
+        if (updatedAppointmentsForDate.length > 0) {
+            appointments = {
+                ...appointments,
+                [date]: updatedAppointmentsForDate
+            };
+        } else {
+            const { [date]: _, ...rest } = appointments;
+            appointments = rest;
+        }
+
+        saveAppointments();
+    }
+    
+    appointmentToDelete = null;
+    showConfirmModal = false;
+}
+
     function loadAppointments() {
         const stored = localStorage.getItem(STORAGE_KEY);
         if (stored) {
@@ -47,7 +78,7 @@
     }
 
     function selectDay(day: number) {
-        selectedDate = `${currentYear}-${String(currentMonth + 1).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
+        selectedDate = `${currentYear}/${String(currentMonth + 1).padStart(2, "0")}/${String(day).padStart(2, "0")}`;
     }
 
     function getAppointments(date: string): Appointment[] {
@@ -55,33 +86,35 @@
     }
     
     function addAppointment() {
-        if (!selectedDate) {
-            alert("Seleziona una data prima");
-            return;
-        }
-        if (!newUser || !newText || !newTime) {
-            alert("Compila tutti i campi");
-            return;
-        }
-
-        const appt: Appointment = {
-            user: newUser,
-            text: newText,
-            time: newTime
-        };
-
-        if (!appointments[selectedDate]) {
-            appointments[selectedDate] = [];
-        }
-        appointments[selectedDate].push(appt);
-        appointments = appointments;
-        saveAppointments();
-
-        newUser = "";
-        newText = "";
-        newTime = "";
-        showModal = false
+    if (!selectedDate) {
+        alert("Seleziona una data prima");
+        return;
     }
+    if (!newUser || !newText || !newTime) {
+        alert("Compila tutti i campi");
+        return;
+    }
+
+    const appt: Appointment = {
+        user: newUser,
+        text: newText,
+        time: newTime
+    };
+
+    const existingAppointments = appointments[selectedDate] ?? [];
+
+    appointments = {
+        ...appointments,
+        [selectedDate]: [...existingAppointments, appt]
+    };
+
+    saveAppointments();
+
+    newUser = "";
+    newText = "";
+    newTime = "";
+    showModal = false;
+}
 
     function prevMonth() {
         currentMonth--;
@@ -116,7 +149,7 @@
                 <!-- svelte-ignore a11y_no_static_element_interactions -->
                 <div 
                     class="day" 
-                    class:active={selectedDate === `${currentYear}-${String(currentMonth + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`}
+                    class:active={selectedDate === `${currentYear}/${String(currentMonth + 1).padStart(2, '0')}/${String(day).padStart(2, '0')}`}
                     on:click={() => selectDay(day)}
                 >
                     {day}
@@ -127,20 +160,29 @@
 
     <div class="events">
         {#if selectedDate}
-            <h3>Appuntamenti del {selectedDate}</h3>
+            <div class="date">
+                <h3>Appuntamenti del {selectedDate}</h3>
+            </div>
             
             <div class="appointment-list">
                 {#if getAppointments(selectedDate).length > 0}
-                    {#each getAppointments(selectedDate) as ev}
+                    {#each getAppointments(selectedDate) as ev, i (ev.time + ev.user)}
                         <div class="event">
-                            <strong>{ev.time} - {ev.user}</strong><br>
-                            <span>{ev.text}</span>
+                            <div>
+                                <strong>{ev.time} - {ev.user}</strong><br>
+                                <span>{ev.text}</span>
+                            </div>
+                            <button class="delete-btn" on:click={() => confirmDelete(selectedDate, i)} >
+                                <Icon icon="material-symbols:delete-outline" width="24" height="24" />
+                            </button>
                         </div>
                     {/each}
                 {:else}
                     <p>Nessun appuntamento per questa data.</p>
                 {/if}
-                <button class="add-btn" on:click={() => showModal = true} >+</button>
+                <div class="button-add">
+                    <button class="add-btn" on:click={() => showModal = true} >+</button>
+                </div>
             </div>
 
             {#if showModal}
@@ -149,7 +191,7 @@
             <div class="modal-backdrop" on:click={() => showModal = false} >
                 <div class="modal" on:click|stopPropagation>
                     <h4>Nuovo Appuntamento</h4>
-                    <input type="date" bind:value={newTime}>
+                    <input type="time" bind:value={newTime}>
                     <input type="text" placeholder="user.." bind:value={newUser}>
                     <textarea bind:value={newText}></textarea>
                     <div class="modal-actions">
@@ -160,6 +202,13 @@
             </div>
                 
             {/if}
+
+            {#if showConfirmModal}
+                <ConfirmModal message="Vuoi davvero eliminare questo appuntamento?"
+                onConfirm={deleteAppointment}
+                onCancel={() => { showConfirmModal = false; appointmentToDelete = null}} />    
+            {/if}
+
         {:else}
             <p>Seleziona una data per vedere o aggiungere appuntamenti.</p>
         {/if}
@@ -172,10 +221,16 @@
         gap: 20px;
     }
 
+    .date{
+        text-align: center;
+        border-bottom: 1px solid #ccc;
+    }
+
     .calendar {
         border-radius: 8px;
         padding: 15px;
         min-width: 500px;
+        min-height: 350px;
         background: white;
         box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.1); 
     }
@@ -229,6 +284,13 @@
         padding: 10px;
         padding: 15px;
         border-left: 4px solid #007bff;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .button-add{
+        text-align: center;
     }
 
     .add-btn {
@@ -267,9 +329,12 @@
 
     .modal input, .modal textarea{
         display: block;
-        margin-bottom: 10px;
+        margin-bottom: 20px;
         width: 100%;
         padding: 6px;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
     }
 
     .modal-actions{
@@ -293,5 +358,14 @@
     .cancel-btn{
         background-color: #C20F2F;
         color: white;
+    }
+
+    .delete-btn{
+        padding: 8px;
+        border-radius: 10px;
+        color: #fff;
+        border: none;
+        background: #C20F2F;
+        cursor: pointer;
     }
 </style>
