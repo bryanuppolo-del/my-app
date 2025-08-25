@@ -1,15 +1,19 @@
 <script>
-// @ts-nocheck
-
+    // @ts-nocheck
     import { onMount } from "svelte";
     import Icon from "@iconify/svelte";
+    import ConfirmModal from "./confirmModal.svelte";
 
     export let apiMode = false;
-    /**
-   * @type {any[]}
-   */
     let data = [];
     let selected = [];
+    
+    let requestToActOn = null;
+
+    let showAccept = false;
+    let showReject = false;
+    let showAcceptGroup = false;
+    let showRejectGroup = false;
 
     function loadRequests() {
         if (apiMode) {
@@ -37,22 +41,30 @@
     }
 
     function acceptRequests(id) {
-        data = data.map(r => r.id ===id ? { ...r, stato:"accettata" } : r)
+        data = data.map(r => r.id === id ? { ...r, stato: "accettata" } : r);
+        saveRequests();
+        showAccept = false;
+        requestToActOn = null;
     }
 
     function rejectRequests(id) {
-        data = data.map(r => r.id ===id ? { ...r, stato:"rifiutata" } : r)
+        data = data.map(r => r.id === id ? { ...r, stato: "rifiutata" } : r);
+        saveRequests();
+        showReject = false;
+        requestToActOn = null;
     }
 
     function acceptSelected() {
         data = data.map(r => selected.includes(r.id) ? { ...r, stato: "accettata"} : r);
         selected = [];
+        showAcceptGroup = false;
         saveRequests();
     }
 
     function rejectSelected() {
         data = data.map(r => selected.includes(r.id) ? { ...r, stato: "rifiutata"} : r);
         selected = [];
+        showRejectGroup = false;
         saveRequests();
     }
 
@@ -60,7 +72,6 @@
         loadRequests();
     });
 
-    // Statistiche
     $: acceptedCount = data.filter(r => r.stato === "accettata").length;
     $: nearDeadlineCount = data.filter(r => r.scadenza >= 2 && r.stato === "in attesa").length;
     $: toAcceptCount = data.filter(r => r.stato === "in attesa").length;
@@ -127,8 +138,8 @@
         <div class="act-group">
             <h2>Ultime richieste</h2>
             <div class="btn-group">
-                <button class="btn-accept" on:click={acceptSelected}>Accetta</button>
-                <button class="btn-reject" on:click={rejectSelected}>Rifiuta</button>
+                <button class="btn-accept" on:click={() => (showAcceptGroup = true)}>Accetta</button>
+                <button class="btn-reject" on:click={() => (showRejectGroup = true)}>Rifiuta</button>
             </div>
         </div>
 
@@ -145,7 +156,7 @@
                 </tr>
             </thead>
             <tbody>
-                {#each data as r}
+                {#each data as r (r.id)}
                     <tr>
                         <td>
                             <input type="checkbox" bind:group={selected} value={r.id} >
@@ -155,11 +166,11 @@
                         <td>{r.scadenza}</td>
                         <td>{r.assegnazione}</td>
                         <td>
-                            <span class="badge {r.stato.replaceAll('', '-')}">{r.stato}</span>
+                            <span class="badge {r.stato.replaceAll(' ', '-')}">{r.stato}</span>
                         </td>
                         <td class="actions">
-                            <button class="btn-accept" on:click={() => acceptRequests(r.id)}>Accetta</button>
-                            <button class="btn-reject" on:click={() => rejectRequests(r.id)}>Rifiuta</button>
+                            <button class="btn-accept" on:click={() => { requestToActOn = r.id; showAccept = true; }}>Accetta</button>
+                            <button class="btn-reject" on:click={() => { requestToActOn = r.id; showReject = true; }}>Rifiuta</button>
                         </td>
                     </tr>
                 {/each}
@@ -167,6 +178,38 @@
         </table>
     </div>
 </div>
+
+{#if showAccept}
+    <ConfirmModal
+        message="Sei sicuro di voler accettare questa richiesta?"
+        onConfirm={() => acceptRequests(requestToActOn)}
+        onCancel={() => {showAccept = false; requestToActOn = null;}}
+    /> 
+{/if}
+
+{#if showReject}
+    <ConfirmModal
+        message="Sei sicuro di voler rifiutare questa richiesta?"
+        onConfirm={() => rejectRequests(requestToActOn)}
+        onCancel={() => {showReject = false; requestToActOn = null;}}
+    />
+{/if}
+
+{#if showAcceptGroup}
+    <ConfirmModal
+        message="Sei sicuro di voler accettare le {selected.length} richieste selezionate?"
+        onConfirm={acceptSelected}
+        onCancel={() => {showAcceptGroup = false}}
+    />
+{/if}
+
+{#if showRejectGroup}
+    <ConfirmModal
+        message="Sei sicuro di voler rifiutare le {selected.length} richieste selezionate?"
+        onConfirm={rejectSelected}
+        onCancel={() => {showRejectGroup = false}}
+    />
+{/if}
 
 <style>
     .dashboard{
@@ -246,10 +289,10 @@
         font-size: 12px;
     }
 
-    .badge.accettata {background: #c836c9;}
-    .badge.in-attesa {background: #fff9c4;}
-    .badge.scaduta {background: #ffcdd2;}
-    .badge.rifiutata {background: #e0e0e0;} 
+    .badge.accettata {background: #c5e1d4; color: #198754;}
+    .badge.in-attesa {background: #fce9c6; color: #F2A71B;}
+    .badge.scaduta {background: #f0c3cb; color: #C20F2F;}
+    .badge.rifiutata {background: #f0c3cb; color: #C20F2F;} 
 
     .icon-section{
         display: flex;

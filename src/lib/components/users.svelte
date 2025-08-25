@@ -15,17 +15,20 @@
     let currentPage= 0;
 
     async function loadUsers() {
-        if (apiMode) {
-            const res = await fetch("/api/accepted-users")
-            allUsers = await res.json();
-        } else {
-            allUsers = Array.from({ length: 50 }, (_, i) => ({
-                id: "13452312" + i,
-                nome: "Bryan Uppolo",
-                avatar: "https://i.pravatar.cc/40?img=" + (i % 70),
-            }));
-        }
-        loadMore()
+    if (apiMode) {
+        const res = await fetch("/api/accepted-users");
+        allUsers = await res.json();
+    } else {
+        const coloriSfondo = ["b6e3f4", "c0aede", "d1d4f9", "ffd5dc", "ffdfbf"];
+        const seedFisso = "ForzaNapoli";
+        
+        allUsers = Array.from({ length: 50 }, (_, i) => ({
+            id: "13452312" + i,
+            nome: "Bryan Uppolo",
+            avatar: `https://api.dicebear.com/8.x/bottts/svg?seed=${seedFisso}&backgroundColor=${coloriSfondo[i % coloriSfondo.length]}`,
+        }));
+    }
+    loadMore();
     }
 
     function loadMore() {
@@ -72,11 +75,9 @@
     {#each visibleUsers as user}
        <div class="user">
         <div class="user-info">
-            <img src="{user.avatar}" alt="avatar">
-            <div>
-                <div>{user.nome}</div>
-                <div class="user-id">{user.id}</div>
-            </div>
+            <img src="{user.avatar}" alt="avatar">            
+            <div>{user.nome}</div>
+            <div class="user-id">#{user.id}</div>
         </div>
         <div class="actions">
             <button class="btn-assign" on:click={() => assegnaUsers(user)} >Assegna</button>
@@ -109,7 +110,8 @@
 
     .user-info{
         display: flex;
-        align-items: end;
+        align-items: center;
+        gap: 150px;
     }
 
     .user-info img{
@@ -117,11 +119,6 @@
         height: 40px;
         border-radius: 50%;
         margin-right: 10px;
-    }
-
-    .user-id{
-        color: #a8a6a6;
-        font-size: 14px;
     }
 
     .actions button{
@@ -135,4 +132,18 @@
 
     .btn-assign { background: #198754; color: white;}
     .btn-delete { background: #C20F2F; color: white;}
+
+        ::-webkit-scrollbar{
+        height: 20px;
+    }
+    
+    ::-webkit-scrollbar-track{
+        background: white;
+        border-radius: 10px;
+    }
+
+    ::-webkit-scrollbar-thumb{
+        border-radius: 10px;
+        background: #0D3C60;
+    }
 </style>
