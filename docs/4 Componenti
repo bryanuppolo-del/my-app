@@ -1,0 +1,44 @@
+## ButtonGo 
+- Scopo: Bottone riutilizzabile per spostarsi in un altra pagina
+- Props principali: Html / CSS / TS
+- Esempio di utilizzo: Nella homepage della dashboard ci sono due bottoni "Vai a -"
+
+## Calendar
+- Scopo: Raggruppa gli ultimi impegni preimpostati dall'ODR
+- Props Principali: Html / CSS / TS
+- Esempio di utilizzo: Nella homepage della dashboard
+
+## CalendarPage
+- Scopo: La pagina in questione viene utilizzata dall'ODR, non solo per controllare i suoi ultimi appuntamenti, ma anche e soprattutto per aggiungerne di nuovi, a differenza di calendar, la calendar page contiene tutti gli appuntamenti
+- Props Principali: Html / CSS / TS
+- Esempio di utilizzo: La sottopaginazione Calendario
+
+## Request
+- Scopo: Raggruppa le ultime richieste ricevute dall'ODR e le mostra in un piccolo riquadro
+- Props Principali: Html / CSS / TS
+- Esempio di utilizzo: Nella homepage della dashboard è presente il riquadro con le ultime richieste
+
+## RequestPage
+- Scopo: Raggruppa tutte le richieste ricevute dall'ODR in una pagina e le le schiera in una lista in modo da poterle accettare o rifiutare, o accettarne e rifiutarne un gruppo di selezionate simultaneamente
+- Props Principali: Html / CSS / TS
+- Esempio di utilizzo: La sottopaginazione Richieste
+
+## RightPanel
+- Scopo: Serve a dare una panoramica sul profilo di chi ha eseguito l'accesso e sulle ultime notifiche che ha ricevuto
+- Props Principali: Html / CSS / TS
+- Esempio di utilizzo: Nella homepage della dashboard sulla destra, è presente questo RightPanel
+
+## Sidebar
+- Scopo: La sidebar è quello che sostanzialmente dovrebbe essere la navbar solo sistemata verticalmente, contiene tutte le sottopaginazioni e serve a cambiare dinamicamente il contenuto della dashboard mantenendo sempre in vista i "Links", in base al link attivo cambia il contenuto della pagina e serve a fare in modo che, invece di cambiare completamente pagina, l'utente cliccando su un altro link cambi solo il contenuto
+- Props Principali: Html / CSS / TS
+- Esempio di utilizzo: è presente nella dashboard
+
+## Users
+- Scopo: Genera la lista di tutti gli utenti che sono stati verificati dall'ODR e li raggruppa rendendone visibili solo 10 alla volta tramite un lazy load che allegerisce tutto quanto
+- Props Principali: Html / CSS / TS
+- Esempio di utilizzo: Nella pagina "Utenti" è presente la lista che si carica con il lazy load
+
+## Profile
+- Scopo:
+- Props Principali:
+- Esempio di utilizzo:

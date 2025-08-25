@@ -2,6 +2,7 @@
 // @ts-nocheck
 
     import { onMount } from "svelte";
+    import Icon from "@iconify/svelte";
 
     export let apiMode = false;
     /**
@@ -69,27 +70,66 @@
 <div class="dashboard">
     <div class="stats">
         <div class="card">
+            <div class="icon-section">
+                <div class="icon-check">
+                    <Icon icon="gg:check-o" width="35" height="35" />
+                </div>
+                <div class="icon-go">
+                    <Icon icon="cuida:arrow-right-outline" width="24" height="24" />
+                </div>
+            </div>
             <h2>Richieste Accettate</h2>
-            <p>{acceptedCount}</p>
+            <p class="count">{acceptedCount}</p>
+            <p style="font-size: 12px">sono state già accettate</p>
         </div>
         <div class="card">
+            <div class="icon-section">
+                <div class="icon-alert">
+                    <Icon icon="streamline:warning-octagon-remix" width="35" height="35" />
+                </div>
+                <div class="icon-go">
+                    <Icon icon="cuida:arrow-right-outline" width="24" height="24" />
+                </div>
+            </div>
             <h2>Scadenza Vicina</h2>
-            <p>{nearDeadlineCount}</p>
+            <p class="count">{nearDeadlineCount}</p>
+            <p style="font-size: 12px">da controllare al più presto</p>
         </div>
         <div class="card">
+            <div class="icon-section">
+                <div class="icon-warning">
+                    <Icon icon="cuida:warning-outline" width="35" height="35" />
+                </div>
+                <div class="icon-go">
+                    <Icon icon="cuida:arrow-right-outline" width="24" height="24" />
+                </div>
+            </div>
             <h2>Da accettare</h2>
-            <p>{toAcceptCount}</p>
+            <p class="count">{toAcceptCount}</p>
+            <p style="font-size: 12px">hanno bisogno di validazione</p>
         </div>
         <div class="card">
+            <div class="icon-section">
+                <div class="icon-ok">
+                    <Icon icon="mingcute:warning-line" width="35" height="35" />
+                </div>
+                <div class="icon-go">
+                    <Icon icon="cuida:arrow-right-outline" width="24" height="24" />
+                </div>
+            </div>
             <h2>Scadute recentemente</h2>
-            <p>{expiredCount}</p>
+            <p class="count">{expiredCount}</p>
+            <p style="font-size: 12px">sono già scadute</p>
         </div>
     </div>
 
     <div class="requests">
-        <div class="btn-group">
-            <button class="btn-accept" on:click={acceptSelected}>Accetta</button>
-            <button class="btn-reject" on:click={rejectSelected}>Rifiuta</button>
+        <div class="act-group">
+            <h2>Ultime richieste</h2>
+            <div class="btn-group">
+                <button class="btn-accept" on:click={acceptSelected}>Accetta</button>
+                <button class="btn-reject" on:click={rejectSelected}>Rifiuta</button>
+            </div>
         </div>
 
         <table>
@@ -141,42 +181,51 @@
     }
 
     .card{
-        background: #f5f5f5;
-        padding: 16px;
+        background: white;
+        padding: 20px;
         border-radius: 10px;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0,1);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
 
     .card h2{
         font-size: 16px;
         margin: 0 0 8px 0;
+        margin-bottom: 36px;
     }
 
-    .card p {
-        font-size: 20px;
-        font-weight: bold;
+    .count {
+        font-size: 40px;
         margin: 0;
     }
 
     .requests {
         background: #fff;
-        padding: 16px;
+        padding: 20px;
         border-radius: 10px;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
 
+    .requests h2{
+        margin:0
+    }
+
     table{
         width: 100%;
-        border-collapse: collapse;
     }
 
     th, td{
         padding: 8px;
-        border-bottom: 1px solid #ddd;
         text-align: left;
     }
 
-    .actions button{
+    .act-group{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 30px;
+    }
+
+    button{
         margin-right: 6px;
         padding: 4px 8px;
         border: none;
@@ -201,4 +250,22 @@
     .badge.in-attesa {background: #fff9c4;}
     .badge.scaduta {background: #ffcdd2;}
     .badge.rifiutata {background: #e0e0e0;} 
+
+    .icon-section{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    .icon-go{
+        background: #f5f7fb;
+        color: #000;
+        padding: 10px;
+        border-radius: 10px;
+    }
+
+    .icon-check{ background: #c5e1d4; color: #198754; padding: 10px; border-radius: 10px; margin-bottom: 10px; }
+    .icon-alert{ background: #f0c3cb; color: #C20F2F; padding: 10px; border-radius: 10px; margin-bottom: 10px; }
+    .icon-warning{ background: #fce9c6; color: #F2A71B; padding: 10px; border-radius: 10px; margin-bottom: 10px; }
+    .icon-ok{ background: #f5f7fb; color: #0D3C60; padding: 10px; border-radius: 10px; margin-bottom: 10px; }
 </style>

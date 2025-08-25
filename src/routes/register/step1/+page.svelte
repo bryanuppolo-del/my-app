@@ -4,21 +4,24 @@
 
     // Dati Form //
 
-    let codiceFiscale = "";
-    let nome = "";
-    let cognome = "";
-    let sesso = "";
-    let dataNascita = "";
-    let nazioneNascita = "";
-    let provinciaNascita = "";
-    let comuneNascita = "";
-    let provinciaResidenza = "";
-    let comuneResidenza = "";
-    let viaResidenza = "";
-    let nc = "";
-    let CAP = "";
+    let codice_fiscale = "";
+    let first_name = "";
+    let last_name = "";
+    let sex = "";
+    let date_of_birth = "";
+    let nation_of_birth = "";
+    let province_of_birth = "";
+    let comune_of_birth = "";
+    let nation_of_residence = "";
+    let province_of_residence = "";
+    let comune_of_residence = "";
+    let place_of_residence = "";
+    let address = "";
+    let number_of_address = "";
+    let cap_of_birth = "";
+    let cap_of_residence = "";
     let email = "";
-    let telefono = "";
+    let phone = "";
 
     let successCF = "";
     let errorCF = "";
@@ -30,10 +33,10 @@
 
     function validaCodiceFiscale() {
         const regex = /^[A-Z]{6}[0-9]{2}[A-Z][0-9]{2}[A-Z][0-9]{3}[A-Z]$/i;
-        if (!regex.test(codiceFiscale)) {
+        if (!regex.test(codice_fiscale)) {
             errorCF = "Codice fiscale non valido";
             successCF = ""
-        }   else if (codiceFiscale === "RSSMRA85M01H501Z") {
+        }   else if (codice_fiscale === "RSSMRA85M01H501Z") {
             errorCF = "Il codice fiscale inserito è gia registrato"; 
             successCF = ""
         }   else {
@@ -49,12 +52,17 @@
 
     function validaTel() {
         const regex = /^(\+39\s?)?3\d{2}\s?\d{7}$/;
-        errorTel = regex.test(telefono) ? "" : "numero di telefono non valido"
+        errorTel = regex.test(phone) ? "" : "numero di telefono non valido"
     }
 
     function validaCAP() {
         const regex = /^\d{5}$/;
-        errorCAP = regex.test(CAP) ? "" : "CAP inesistente"
+        errorCAP = regex.test(cap_of_birth) ? "" : "CAP inesistente"
+    }
+
+    function validaCAP2() {
+        const regex = /^\d{5}$/;
+        errorCAP = regex.test(cap_of_residence) ? "" : "CAP inesistente"
     }
 
     // Next Step //
@@ -68,24 +76,28 @@
         validaEmail();
         validaTel();
         validaCAP();
+        validaCAP2();
 
         if (!errorCF && !errorEmail && !errorTel && !errorCAP) {
             const userData = {
-            codiceFiscale,
-            nome,
-            cognome,
-            sesso,
-            dataNascita,
-            nazioneNascita,
-            provinciaNascita,
-            comuneNascita,
-            provinciaResidenza,
-            comuneResidenza,
-            viaResidenza,
-            nc,
-            CAP,
+            codice_fiscale,
+            first_name,
+            last_name,
+            sex,
+            date_of_birth,
+            nation_of_birth,
+            province_of_birth,
+            comune_of_birth,
+            province_of_residence,
+            comune_of_residence,
+            address,
+            number_of_address,
+            cap_of_birth,
+            cap_of_residence,
             email,
-            telefono
+            phone,
+            nation_of_residence,
+            place_of_residence
             }
 
             localStorage.setItem("userData", JSON.stringify(userData));
@@ -124,7 +136,7 @@
                 Codice Fiscale*
                 <div class="input-with-btn">
                     <input type="text"
-                    bind:value={codiceFiscale}
+                    bind:value={codice_fiscale}
                     class:error={errorCF}
                     class:success={successCF}>
                     <button class="check-button" class:success={successCF} class:error={errorCF} type="button" aria-label="checkbutton" on:click={validaCodiceFiscale}><i class='bx  bx-clipboard-check'  ></i> </button>
@@ -136,33 +148,33 @@
                 {/if}
             </label>
 
-            <label for="nome">
+            <label for="first_name">
                 Nome
-                <input type="text" bind:value={nome}>
+                <input type="text" bind:value={first_name}>
             </label>
 
-            <label for="cognome">
+            <label for="last_name">
                 Cognome
-                <input type="text" bind:value={cognome}>
+                <input type="text" bind:value={last_name}>
             </label>
 
-            <label for="sesso">
+            <label for="sex">
                 Sesso
-                <select bind:value={sesso}>
+                <select bind:value={sex}>
                     <option value="">Seleziona...</option>
                     <option value="M">Maschio</option>
                     <option value="F">Femmina</option>
                 </select>
             </label>
 
-            <label for="dataNascita">
+            <label for="date_of_birth">
                 Data di nascita
-                <input type="date" bind:value={dataNascita}>
+                <input type="date" bind:value={date_of_birth}>
             </label>
 
-            <label for="nazioneNascita">
+            <label for="nation_of_birth">
                 Nazione di Nascita
-                <select bind:value={nazioneNascita}>
+                <select bind:value={nation_of_birth}>
                     <option value="">Seleziona...</option>
                     <option value="IT">Italia</option>
                     <option value="FR">Francia</option>
@@ -170,42 +182,68 @@
                 </select>
             </label>
 
-            <label for="provinciaNascita">
+            <label for="province_of_birth">
                 Provincia di nascita
-                <input type="text" bind:value={provinciaNascita}>
+                <input type="text" bind:value={province_of_birth}>
             </label>
 
-            <label for="comuneNascita">
+            <label for="comune_of_birth">
                 Comune di nascita
-                <input type="text" bind:value={comuneNascita}>
+                <input type="text" bind:value={comune_of_birth}>
             </label>
 
-            <label for="provinciaResidenza">
+            <label for="nation_of_residence">
+                Nazione di Residenza
+                <select bind:value={nation_of_residence}>
+                    <option value="">Seleziona...</option>
+                    <option value="IT">Italia</option>
+                    <option value="FR">Francia</option>
+                    <option value="DE">Germania</option>
+                </select>
+            </label>
+
+            <label for="province_of_residence">
                 Provincia di residenza
-                <input type="text" bind:value={provinciaResidenza}>
+                <input type="text" bind:value={province_of_residence}>
             </label>
 
-            <label for="comuneResidenza">
+            <label for="comune_of_residence">
                 Comune di residenza
-                <input type="text" bind:value={comuneResidenza}>
+                <input type="text" bind:value={comune_of_residence}>
             </label>
 
-            <label for="viaResidenza">
+            <label for="place_of_residence">
+                Località
+                <input type="text" bind:value={place_of_residence}>
+            </label>
+
+            <label for="address">
                 Via di residenza
-                <input type="text" bind:value={viaResidenza}>
+                <input type="text" bind:value={address}>
             </label>
 
-            <label for="nc">
+            <label for="number_of_address">
                 Numero Civico
-                <input type="text" bind:value={nc}>
+                <input type="text" bind:value={number_of_address}>
             </label>
 
-            <label for="CAP">
-                CAP
+            <label for="cap_of_birth">
+                CAP Nascita
                 <input type="text" 
-                bind:value={CAP}
+                bind:value={cap_of_birth}
                 class:error={errorCAP}
                 on:blur={validaCAP}>
+                {#if errorCAP}
+                    <span class="error-message">{errorCAP}</span>
+                {/if}
+            </label>
+
+            <label for="cap_of_residence">
+                CAP Residenza
+                <input type="text" 
+                bind:value={cap_of_residence}
+                class:error={errorCAP}
+                on:blur={validaCAP2}>
                 {#if errorCAP}
                     <span class="error-message">{errorCAP}</span>
                 {/if}
@@ -222,10 +260,10 @@
                 {/if}
             </label>
 
-            <label for="telefono">
+            <label for="phone">
                 Telefono
                 <input type="tel" 
-                bind:value={telefono}
+                bind:value={phone}
                 class:error={errorTel}
                 on:blur={validaTel}>
                 {#if errorTel}

@@ -14,10 +14,12 @@
 
     // Dati Form //
 
+    let user_id: string = "";
     let document_type: string = "";
     let document_number: string = "";
     let document_issuer: string = "";
     let issue_date: string = "";
+    let tipo_riconsegna: undefined;
     let expiry_date: string = "";
     let document_image_front: File | null = null;
     let document_image_back: File | null = null;

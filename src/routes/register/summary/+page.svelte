@@ -2,21 +2,24 @@
     import { onMount } from "svelte";
 
     interface userData {
-        codiceFiscale: string;
-        nome: string;
-        cognome: string;
-        sesso: string;
-        dataNascita: string;
-        nazioneNascita: string;
-        provinciaNascita: string;
-        comuneNascita: string;
-        provinciaResidenza: string;
-        comuneResidenza: string;
-        viaResidenza: string;
-        nc: string;
-        CAP: string;
+        codice_fiscale: string;
+        first_name: string;
+        last_name: string;
+        sex: string;
+        date_of_birth: string;
+        nation_of_birth: string;
+        province_of_birth: string;
+        comune_of_birth: string;
+        nation_of_residence: string;
+        province_of_residence: string;
+        comune_of_residence: string;
+        place_of_residence: string;
+        address: string;
+        number_of_address: string;
+        cap_of_birth: string;
+        cap_of_residence: string;
         email: string;
-        telefono: string;
+        phone: string;
         documento?: Documento;
     }
 
@@ -51,21 +54,24 @@
 {#if userData}
     <section>
         <h2>Step 1 - Dati Anagrafici</h2>
-        <p><strong>Codice Fiscale:</strong> {userData.codiceFiscale}</p>
-        <p><strong>Nome:</strong> {userData.nome}</p>
-        <p><strong>Cognome:</strong> {userData.cognome}</p>
-        <p><strong>Sesso:</strong> {userData.sesso}</p>
-        <p><strong>Data di nascita:</strong> {userData.dataNascita}</p>
-        <p><strong>Nazione di nascita:</strong> {userData.nazioneNascita}</p>
-        <p><strong>Provincia di nascita:</strong> {userData.provinciaNascita}</p>
-        <p><strong>Comune di nascita:</strong> {userData.comuneNascita}</p>
-        <p><strong>Provincia di residenza:</strong> {userData.provinciaResidenza}</p>
-        <p><strong>Comune di residenza:</strong> {userData.comuneResidenza}</p>
-        <p><strong>Via di residenza:</strong> {userData.viaResidenza}</p>
-        <p><strong>Numero Civico:</strong> {userData.nc}</p>
-        <p><strong>CAP:</strong> {userData.CAP}</p>
+        <p><strong>Codice Fiscale:</strong> {userData.codice_fiscale}</p>
+        <p><strong>Nome:</strong> {userData.first_name}</p>
+        <p><strong>Cognome:</strong> {userData.last_name}</p>
+        <p><strong>Sesso:</strong> {userData.sex}</p>
+        <p><strong>Data di nascita:</strong> {userData.date_of_birth}</p>
+        <p><strong>Nazione di nascita:</strong> {userData.nation_of_birth}</p>
+        <p><strong>Provincia di nascita:</strong> {userData.province_of_birth}</p>
+        <p><strong>Comune di nascita:</strong> {userData.comune_of_birth}</p>
+        <p><strong>Nazione di residenza:</strong> {userData.nation_of_residence}</p>
+        <p><strong>Località:</strong> {userData.place_of_residence}</p>
+        <p><strong>Provincia di residenza:</strong> {userData.province_of_residence}</p>
+        <p><strong>Comune di residenza:</strong> {userData.comune_of_residence}</p>
+        <p><strong>Via di residenza:</strong> {userData.address}</p>
+        <p><strong>Numero Civico:</strong> {userData.number_of_address}</p>
+        <p><strong>CAP di Nascita:</strong> {userData.cap_of_birth}</p>
+        <p><strong>CAP di Residenza:</strong> {userData.cap_of_residence}</p>
         <p><strong>Email:</strong> {userData.email}</p>
-        <p><strong>Telefono:</strong> {userData.telefono}</p>
+        <p><strong>Telefono:</strong> {userData.phone}</p>
     </section>
 
     <section>
