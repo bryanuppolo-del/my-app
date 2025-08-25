@@ -1,5 +1,9 @@
+<script>
+    import RequestPage from "$lib/components/requestPage.svelte";
+</script>
+
 <div class="app">
-    <h1>Qui va il contenuto delle richieste</h1>
+    <RequestPage apiMode={false}></RequestPage>
 </div>
 
 <style>

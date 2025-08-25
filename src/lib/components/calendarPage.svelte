@@ -1,4 +1,5 @@
 <script lang="ts">
+    import Icon from "@iconify/svelte";
     import { onMount } from "svelte";
 
     type Appointment = {
@@ -12,19 +13,18 @@
     let appointments: AppointmentMap = {};
     let selectedDate: string = "";
 
-    // --- Variabili per il form ---
     let newUser = "";
     let newText = "";
     let newTime = "";
 
-    // --- Variabili reattive per il calendario ---
+    let showModal: boolean = false;
+
     let currentYear = new Date().getFullYear();
-    let currentMonth = new Date().getMonth(); // 0-11
+    let currentMonth = new Date().getMonth(); 
     let daysInMonth: number[] = [];
 
     const STORAGE_KEY = "appointments";
 
-    // --- Blocco Reattivo per aggiornare i giorni del mese ---
     $: {
         const date = new Date(currentYear, currentMonth + 1, 0);
         const totalDays = date.getDate();
@@ -47,7 +47,6 @@
     }
 
     function selectDay(day: number) {
-        // CORREZIONE: Usa currentYear e currentMonth
         selectedDate = `${currentYear}-${String(currentMonth + 1).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
     }
 
@@ -75,12 +74,13 @@
             appointments[selectedDate] = [];
         }
         appointments[selectedDate].push(appt);
-        appointments = appointments; // Forza l'aggiornamento della UI
+        appointments = appointments;
         saveAppointments();
 
         newUser = "";
         newText = "";
         newTime = "";
+        showModal = false
     }
 
     function prevMonth() {
@@ -89,7 +89,7 @@
             currentMonth = 11;
             currentYear--;
         }
-        selectedDate = ''; // Deseleziona la data quando cambi mese
+        selectedDate = '';
     }
 
     function nextMonth() {
@@ -98,16 +98,16 @@
             currentMonth = 0;
             currentYear++;
         }
-        selectedDate = ''; // Deseleziona la data quando cambi mese
+        selectedDate = '';
     }
 </script>
 
 <div class="container">
     <div class="calendar">
         <div class="calendar-header">
-            <button on:click={prevMonth}>Indietro</button>
+            <button class="next-prev"  aria-label="prevMonth"><Icon icon="mingcute:left-fill" on:click={prevMonth} width="24" height="24" /></button>
             <h2>{new Date(currentYear, currentMonth).toLocaleString("it-IT", {month: "long"})} {currentYear}</h2>
-            <button on:click={nextMonth}>Avanti</button>
+            <button class="next-prev" on:click={nextMonth} aria-label="nextMonth"><Icon icon="mingcute:right-fill" width="24" height="24" /></button>
         </div>
 
         <div class="days">
@@ -140,15 +140,26 @@
                 {:else}
                     <p>Nessun appuntamento per questa data.</p>
                 {/if}
+                <button class="add-btn" on:click={() => showModal = true} >+</button>
             </div>
 
-            <div class="form">
-                <h4>Aggiungi nuovo appuntamento</h4>
-                <input type="time" bind:value={newTime} required>
-                <input type="text" placeholder="Utente" bind:value={newUser} required>
-                <textarea bind:value={newText} placeholder="Descrizione" required></textarea>
-                <button on:click={addAppointment}>Salva</button>
+            {#if showModal}
+            <!-- svelte-ignore a11y_click_events_have_key_events -->
+            <!-- svelte-ignore a11y_no_static_element_interactions -->
+            <div class="modal-backdrop" on:click={() => showModal = false} >
+                <div class="modal" on:click|stopPropagation>
+                    <h4>Nuovo Appuntamento</h4>
+                    <input type="date" bind:value={newTime}>
+                    <input type="text" placeholder="user.." bind:value={newUser}>
+                    <textarea bind:value={newText}></textarea>
+                    <div class="modal-actions">
+                        <button class="cancel-btn" on:click={() => showModal = false} >Chiudi</button>
+                        <button class="save-btn" on:click={addAppointment} >Salva</button>
+                    </div>
+                </div>
             </div>
+                
+            {/if}
         {:else}
             <p>Seleziona una data per vedere o aggiungere appuntamenti.</p>
         {/if}
@@ -159,60 +170,128 @@
     .container {
         display: flex;
         gap: 20px;
-        font-family: sans-serif;
     }
+
     .calendar {
-        border: 1px solid #ccc;
         border-radius: 8px;
         padding: 15px;
-        width: 350px;
+        min-width: 500px;
+        background: white;
+        box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.1); 
     }
-    .calendar-header {
+
+    .calendar-header{
         display: flex;
         justify-content: space-between;
         align-items: center;
+        margin-bottom: 10px;
     }
-    .days {
+
+    .next-prev{
+        border-radius: 10px;
+        color: #007bff;
+        border: none;
+        background-color: white;
+    }
+
+    .days{
         display: grid;
         grid-template-columns: repeat(7, 1fr);
         gap: 5px;
-        margin-top: 15px;
     }
-    .day {
-        padding: 10px;
+
+    .day{
         text-align: center;
+        padding: 6px;
+        border-radius: 5px;
         cursor: pointer;
-        border-radius: 50%;
     }
-    .day:hover {
-        background-color: #f0f0f0;
+
+    .day:hover{
+        background-color: #eee;
     }
-    .day.active {
+
+    .day.active{
         background-color: #007bff;
         color: white;
     }
-    .events {
-        flex-grow: 1;
+
+    .events{
+        border-radius: 8px;
+        padding: 15px;
+        min-width: 700px;
+        background: white;
+        box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.1); 
     }
-    .event {
-        border: 1px solid #eee;
+
+    .event{
+        margin-bottom: 10px;
         padding: 10px;
-        margin-bottom: 5px;
-        border-radius: 4px;
+        padding: 15px;
+        border-left: 4px solid #007bff;
     }
-    .appointment-list{
-        margin-bottom: 20px;
+
+    .add-btn {
+        margin-top: 10px;
+        padding: 8px 23px;
+        background-color: #007bff;
+        border: none;
+        color: white;
+        cursor: pointer;
+        border-radius: 5px;
     }
-    .form {
+
+    .modal-backdrop{
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
         display: flex;
-        flex-direction: column;
-        gap: 10px;
-        margin-top: 15px;
-        padding-top: 15px;
-        border-top: 1px solid #ccc;
+        align-items: center;
+        justify-content: center;
     }
-    input, textarea, button {
-        padding: 8px;
-        font-size: 1em;
+
+    .modal{
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+        width: 400px;
+        max-width: 90%;
+    }
+
+    .modal h4{
+        margin-top: 0;
+    }
+
+    .modal input, .modal textarea{
+        display: block;
+        margin-bottom: 10px;
+        width: 100%;
+        padding: 6px;
+    }
+
+    .modal-actions{
+        display: flex;
+        justify-content: flex-end;
+        gap: 10px;
+    }
+
+    .modal-actions button{
+        padding: 8px 12px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+    }
+
+    .save-btn{
+        background-color: #198754;
+        color: white;
+    }
+
+    .cancel-btn{
+        background-color: #C20F2F;
+        color: white;
     }
 </style>

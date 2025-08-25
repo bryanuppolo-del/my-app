@@ -1,5 +1,9 @@
+<script>
+    import Users from "$lib/components/users.svelte";
+</script>
+
 <div class="app">
-    <h1>Qui va ilk contenuto degli utenti</h1>
+    <Users apiMode={false}></Users>
 </div>
 
 <style>
